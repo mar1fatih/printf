@@ -1,7 +1,7 @@
 #include "main.h"
 int _printf(const char *format, ...)
 {
-	int i = 0, c = 0;
+	int i = 0, c = 0, n;
 	va_list ptr;
 	va_start(ptr, format);
 	if (format == NULL || (format[0] == '%' && !format[1]))
@@ -19,7 +19,7 @@ int _printf(const char *format, ...)
 			i++;
 			if (*(format + i) == 'd' || *(format + i) == 'i')
 			{
-				int n = va_arg(ptr, int);
+				n = va_arg(ptr, int);
 				if (n < 0)
 				{
 					c++;
@@ -27,6 +27,12 @@ int _printf(const char *format, ...)
 				c += num_len(n);
 				num_print(n);
 				i++;
+			}
+			else if (*(format + i) == 'b')
+			{
+			n = va_arg(ptr, int);
+			c += d_to_bi(n);
+			i++;
 			}
 			else
 			{
